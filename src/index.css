@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 300 900;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 1000;
+}
+
+@layer base {
+  :root {
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", "Figtree", sans-serif;
+    --font-mono: "DM Sans", monospace;
+    --radius: 0.875rem;
+
+    /* Scholar's Margin — warm paper light mode */
+    --background: 0.975 0.008 85;
+    --foreground: 0.235 0.03 275;
+    --card: 0.995 0.004 85;
+    --card-foreground: 0.235 0.03 275;
+    --popover: 0.995 0.004 85;
+    --popover-foreground: 0.235 0.03 275;
+
+    --primary: 0.42 0.155 268;
+    --primary-foreground: 0.98 0.008 268;
+
+    --secondary: 0.945 0.012 85;
+    --secondary-foreground: 0.32 0.04 275;
+    --muted: 0.945 0.012 85;
+    --muted-foreground: 0.5 0.025 275;
+
+    --accent: 0.82 0.155 82;
+    --accent-foreground: 0.28 0.06 70;
+
+    --destructive: 0.575 0.2 22;
+    --destructive-foreground: 0.98 0.008 22;
+
+    --success: 0.6 0.145 152;
+    --success-foreground: 0.98 0.008 152;
+    --warning: 0.75 0.15 78;
+    --warning-foreground: 0.28 0.06 70;
+
+    --border: 0.905 0.012 85;
+    --input: 0.905 0.012 85;
+    --ring: 0.42 0.155 268;
+
+    /* Concept status colors (formative loop) */
+    --status-covered: 0.6 0.145 152;
+    --status-partial: 0.75 0.15 78;
+    --status-missing: 0.62 0.03 275;
+    --status-misconception: 0.6 0.19 18;
+
+    --chart-1: 0.42 0.155 268;
+    --chart-2: 0.82 0.155 82;
+    --chart-3: 0.6 0.145 152;
+    --chart-4: 0.6 0.19 18;
+    --chart-5: 0.55 0.09 305;
+
+    --sidebar: 0.965 0.01 85;
+    --sidebar-foreground: 0.235 0.03 275;
+    --sidebar-primary: 0.42 0.155 268;
+    --sidebar-primary-foreground: 0.98 0.008 268;
+    --sidebar-accent: 0.945 0.012 85;
+    --sidebar-accent-foreground: 0.32 0.04 275;
+    --sidebar-border: 0.905 0.012 85;
+    --sidebar-ring: 0.42 0.155 268;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.42 0.155 268),
+      oklch(0.5 0.14 292)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.975 0.008 85),
+      oklch(0.95 0.014 85)
+    );
+    --gradient-highlight: linear-gradient(
+      180deg,
+      oklch(0.9 0.12 82 / 0.35),
+      oklch(0.9 0.12 82 / 0.9)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Scholar's Margin — warm ink dark mode */
+    --background: 0.17 0.022 275;
+    --foreground: 0.93 0.012 85;
+    --card: 0.215 0.026 275;
+    --card-foreground: 0.93 0.012 85;
+    --popover: 0.215 0.026 275;
+    --popover-foreground: 0.93 0.012 85;
+
+    --primary: 0.72 0.13 268;
+    --primary-foreground: 0.17 0.022 275;
+
+    --secondary: 0.26 0.028 275;
+    --secondary-foreground: 0.87 0.014 85;
+    --muted: 0.26 0.028 275;
+    --muted-foreground: 0.66 0.02 85;
+
+    --accent: 0.82 0.15 82;
+    --accent-foreground: 0.2 0.05 70;
+
+    --destructive: 0.66 0.18 22;
+    --destructive-foreground: 0.17 0.022 22;
+
+    --success: 0.7 0.14 152;
+    --success-foreground: 0.17 0.022 152;
+    --warning: 0.8 0.14 78;
+    --warning-foreground: 0.2 0.05 70;
+
+    --border: 0.3 0.026 275;
+    --input: 0.3 0.026 275;
+    --ring: 0.72 0.13 268;
+
+    --status-covered: 0.7 0.14 152;
+    --status-partial: 0.8 0.14 78;
+    --status-missing: 0.66 0.02 85;
+    --status-misconception: 0.68 0.17 18;
+
+    --chart-1: 0.72 0.13 268;
+    --chart-2: 0.82 0.15 82;
+    --chart-3: 0.7 0.14 152;
+    --chart-4: 0.68 0.17 18;
+    --chart-5: 0.68 0.1 305;
+
+    --sidebar: 0.2 0.024 275;
+    --sidebar-foreground: 0.93 0.012 85;
+    --sidebar-primary: 0.72 0.13 268;
+    --sidebar-primary-foreground: 0.17 0.022 275;
+    --sidebar-accent: 0.26 0.028 275;
+    --sidebar-accent-foreground: 0.87 0.014 85;
+    --sidebar-border: 0.3 0.026 275;
+    --sidebar-ring: 0.72 0.13 268;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.6 0.16 268),
+      oklch(0.62 0.14 292)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.17 0.022 275),
+      oklch(0.2 0.026 275)
+    );
+    --gradient-highlight: linear-gradient(
+      180deg,
+      oklch(0.6 0.12 82 / 0.3),
+      oklch(0.6 0.12 82 / 0.75)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  .text-gradient-primary {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .highlight-covered {
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      oklch(var(--status-covered) / 0.32) 55%
+    );
+    border-radius: 2px;
+  }
+  .highlight-partial {
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      oklch(var(--status-partial) / 0.34) 55%
+    );
+    border-radius: 2px;
+  }
+  .highlight-missing {
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      oklch(var(--status-missing) / 0.28) 55%
+    );
+    border-radius: 2px;
+  }
+  .highlight-misconception {
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      oklch(var(--status-misconception) / 0.3) 55%
+    );
+    border-radius: 2px;
+  }
+  .paper-texture {
+    background-image: radial-gradient(
+      oklch(var(--foreground) / 0.025) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+}

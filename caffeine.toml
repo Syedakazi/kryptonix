@@ -1,16 +1,15 @@
 manifest_version = "0.1.0"
 
 [project]
-name = "backend"
-type = "motoko"
-main = "main.mo"
+name = "frontend"
+type = "assets"
 
 [build]
-commands = ["mops build", "pnpm bindgen"]
+commands = ["pnpm build"]
 out = "dist"
 
 [check]
-commands = ["mops check"]
+commands = ["pnpm typecheck", "pnpm check"]
 
 [check.fix]
-commands = ["mops check --fix"]
+commands = ["pnpm typecheck", "pnpm fix"]
