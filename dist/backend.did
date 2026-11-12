@@ -1,0 +1,352 @@
+type VersionView = 
+ record {
+   coveragePct: float64;
+   createdAt: Timestamp;
+   id: Id;
+   submission: Id;
+   "text": text;
+   versionNo: nat;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type UserApprovalInfo = 
+ record {
+   "principal": principal;
+   status: ApprovalStatus;
+ };
+type Timestamp = int;
+type Time = int;
+type SubmissionView = 
+ record {
+   assignment: Id;
+   createdAt: Timestamp;
+   id: Id;
+   status: SubmissionStatus;
+   student: UserId;
+   updatedAt: Timestamp;
+ };
+type SubmissionStatus = 
+ variant {
+   draft;
+   submitted;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Redemption = 
+ record {
+   at: Time;
+   user: principal;
+ };
+type RedeemResult = 
+ variant {
+   alreadyMember;
+   blocked;
+   expired;
+   invalid;
+   joined;
+   revoked;
+   usedUp;
+ };
+type ReadingView = 
+ record {
+   content: text;
+   createdAt: Timestamp;
+   id: Id;
+   student: UserId;
+   title: text;
+ };
+type ReadingEvaluationView = 
+ record {
+   createdAt: Timestamp;
+   feedbackJson: text;
+   id: Id;
+   reading: Id;
+   scoresJson: text;
+ };
+type ProfileView = 
+ record {
+   createdAt: Timestamp;
+   id: UserId;
+   name: text;
+   role: AppRole;
+ };
+type OverrideStatus = 
+ variant {
+   accepted;
+   none;
+   overridden;
+ };
+type MarginNoteView = 
+ record {
+   anchorText: text;
+   createdAt: Timestamp;
+   id: Id;
+   noteType: MarginNoteType;
+   question: text;
+   reading: Id;
+   studentResponse: opt text;
+ };
+type MarginNoteType = 
+ variant {
+   highlight;
+   question;
+   summary;
+ };
+type InviteStatus = 
+ variant {
+   expired;
+   invalid;
+   revoked;
+   usedUp;
+   valid;
+ };
+type InviteInfo = 
+ record {
+   code: text;
+   createdAt: Time;
+   createdBy: principal;
+   expiresAt: opt Time;
+   maxUses: opt nat;
+   name: text;
+   redemptions: vec Redemption;
+   revoked: bool;
+ };
+type Id = nat;
+type GrowthTimeline = 
+ record {
+   diff: vec ConceptDiffEntry;
+   fixedCount: nat;
+   points: vec GrowthPoint;
+ };
+type GrowthPoint = 
+ record {
+   coveragePct: float64;
+   createdAt: Timestamp;
+   versionNo: nat;
+ };
+type FeedbackResult = 
+ record {
+   coveragePct: float64;
+   results: vec ConceptResultView;
+   version: VersionView;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type ConceptView = 
+ record {
+   assignment: Id;
+   description: text;
+   id: Id;
+   misconception: text;
+   name: text;
+   weight: float64;
+ };
+type ConceptStatus = 
+ variant {
+   covered;
+   misconception;
+   missing;
+   partial;
+ };
+type ConceptResultView = 
+ record {
+   concept: Id;
+   confidence: float64;
+   evidenceQuote: opt text;
+   id: Id;
+   nudge: text;
+   status: ConceptStatus;
+   teacherComment: opt text;
+   teacherOverrideStatus: OverrideStatus;
+   version: Id;
+ };
+type ConceptDiffEntry = 
+ record {
+   concept: Id;
+   conceptName: text;
+   fromStatus: ConceptStatus;
+   improved: bool;
+   toStatus: ConceptStatus;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AssignmentView = 
+ record {
+   createdAt: Timestamp;
+   id: Id;
+   prompt: text;
+   rubricText: text;
+   teacher: UserId;
+   title: text;
+ };
+type AssignedTask = 
+ record {
+   assignment: AssignmentView;
+   latestCoveragePct: opt float64;
+   submission: opt SubmissionView;
+ };
+type ApprovalStatus = 
+ variant {
+   approved;
+   pending;
+   rejected;
+ };
+type ApprovalState = 
+ variant {
+   approved;
+   pending;
+   rejected;
+ };
+type ApprovalRequestView = 
+ record {
+   decidedAt: opt Timestamp;
+   name: text;
+   requestedAt: Timestamp;
+   role: AppRole;
+   state: ApprovalState;
+   user: UserId;
+ };
+type AppRole = 
+ variant {
+   student;
+   teacher;
+ };
+type AccessStatus = 
+ record {
+   approved: bool;
+   name: opt text;
+   registered: bool;
+   role: opt AppRole;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Add a concept to an assignment (teacher only).
+  addConcept: (assignment: Id, name: text, description: text, weight:
+   float64, misconception: text) -> (Id);
+  /// Add a margin note to a reading (R16).
+  addMarginNote: (reading: Id, noteType: MarginNoteType, anchorText: 
+   text, question: text) -> (Id);
+  /// Record the student's response to a margin note (R16).
+  answerMarginNote: (note: Id, response: text) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  checkInvite: (code: text) -> (InviteStatus) query;
+  /// Create an assignment (teacher only).
+  createAssignment: (title: text, prompt: text, rubricText: text) -> (Id);
+  createInvite: (name: text, maxUses: opt nat, expiresAt: opt Time) -> (text);
+  /// Create a reading for the caller student (R16).
+  createReading: (title: text, content: text) -> (Id);
+  /// Approve or reject an account (admin only).
+  decideApproval: (user: principal, decision: ApprovalState) -> ();
+  execute: (qJson: text) -> (Result) query;
+  /// Registration + approval + role status for the caller (R2).
+  getAccessStatus: () -> (AccessStatus) query;
+  /// Static behavioral API documentation for AI assistants reading this canister
+  /// through the ICP MCP connector. Authored from source; reads no runtime state.
+  getApiDoc: () -> (text) query;
+  /// Read one assignment the caller may see (R17).
+  getAssignment: (assignment: Id) -> (opt AssignmentView) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Send the answer + concept graph to the LLM and persist a new version with
+  /// per-concept results and weighted coverage (R10, R11, R12, R19).
+  /// Backend inference path: HTTPS outcall inside this update call.
+  getFeedback: (submission: Id, "text": text) -> (FeedbackResult);
+  /// Growth timeline + concept diff across a submission's versions (R12).
+  getGrowthTimeline: (submission: Id) -> (GrowthTimeline) query;
+  /// Read the caller's own profile.
+  getMyProfile: () -> (opt ProfileView) query;
+  /// Get or create the caller's submission for an assignment (R17).
+  getOrCreateSubmission: (assignment: Id) -> (SubmissionView);
+  /// Read one reading the caller owns (R17).
+  getReading: (reading: Id) -> (opt ReadingView) query;
+  /// Read one version the caller may see (R17).
+  getVersion: (version: Id) -> (opt VersionView) query;
+  isCallerAdmin: () -> (bool) query;
+  isCallerApproved: () -> (bool) query;
+  /// List pending/all approval requests (admin only).
+  listApprovalRequests: () -> (vec ApprovalRequestView) query;
+  listApprovals: () -> (vec UserApprovalInfo) query;
+  /// List the caller student's assigned tasks (R9, R17).
+  listAssignedTasks: () -> (vec AssignedTask) query;
+  /// List submissions for one of the caller teacher's assignments (R17).
+  listAssignmentSubmissions: (assignment: Id) -> (vec SubmissionView) query;
+  /// List concept results for a version (R17).
+  listConceptResults: (version: Id) -> (vec ConceptResultView) query;
+  /// List an assignment's concepts (R17).
+  listConcepts: (assignment: Id) -> (vec ConceptView) query;
+  listInvites: () -> (vec InviteInfo) query;
+  /// List margin notes for a reading (R17).
+  listMarginNotes: (reading: Id) -> (vec MarginNoteView) query;
+  /// List reading evaluations for a reading (R17).
+  listReadingEvaluations: (reading: Id) -> (vec ReadingEvaluationView) query;
+  /// List the caller's readings (R17).
+  listReadings: () -> (vec ReadingView) query;
+  /// List the caller teacher's assignments.
+  listTeacherAssignments: () -> (vec AssignmentView) query;
+  /// List the caller's versions for a submission (R12).
+  listVersions: (submission: Id) -> (vec VersionView) query;
+  /// Teacher override of one AI judgement (R19).
+  overrideConceptResult: (result: Id, status: OverrideStatus, comment:
+   opt text) -> ();
+  redeemInvite: (code: text) -> (RedeemResult);
+  /// Register the caller with a chosen Teacher/Student role (R2). Signed-in only.
+  registerProfile: (role: AppRole, name: text) -> ();
+  removeApproval: (user: principal) -> ();
+  requestApproval: () -> ();
+  revokeInvite: (code: text) -> ();
+  /// Save a reading evaluation (R16).
+  saveReadingEvaluation: (reading: Id, scoresJson: text, feedbackJson:
+   text) -> (Id);
+  schema: () -> (text) query;
+  setApproval: (user: principal, status: ApprovalStatus) -> ();
+  /// Submit the caller's submission to the teacher (R12).
+  submitToTeacher: (submission: Id) -> ();
+  /// Update the caller's display name.
+  updateProfileName: (name: text) -> ();
+}

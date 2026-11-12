@@ -1,0 +1,21 @@
+{
+  "overview": "Marginalia is an AI-powered formative assessment app for higher education that grades the thinking, not just the answer, by giving students Socratic feedback on their written answers.",
+  "features": [
+    "Sign in with Internet Identity and choose a Teacher or Student role, with teacher approval before access",
+    "Student dashboard listing assigned tasks and a Reading Mode card",
+    "Answer Page with an answer editor and an AI feedback panel that returns per-concept status, evidence quotes, Socratic nudges and confidence",
+    "Evidence highlighting, a concept checklist with status chips and a weighted Understanding Meter",
+    "Version history with a Growth Timeline chart, a before/after concept diff and Submit to teacher",
+    "Teacher-overridable AI judgements with confidence shown on every judgement"
+  ],
+  "category": "education",
+  "tags": [
+    "education",
+    "formative-assessment",
+    "ai-feedback",
+    "socratic",
+    "students",
+    "teachers"
+  ],
+  "last_updated": "2026-11-12T08:13:23.219Z"
+}

@@ -1,0 +1,342 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type AppRole__27072156 = AppRole__688856519;
+type AppRole__688856519 = {#student; #teacher};
+type AppRole__851444669 = {#student; #teacher};
+type ApprovalRequest__155810538 =
+  {
+    decidedAt : ?Timestamp__771871407;
+    name : Text;
+    requestedAt : Timestamp__771871407;
+    role : AppRole__851444669;
+    state : ApprovalState__693649776;
+    user : UserId__39544917
+  };
+type ApprovalRequest__494363354 =
+  {
+    decidedAt : ?Timestamp__296597958;
+    name : Text;
+    requestedAt : Timestamp__296597958;
+    role : AppRole__27072156;
+    state : ApprovalState__495364952;
+    user : UserId__814858161
+  };
+type ApprovalState__495364952 = ApprovalState__572692684;
+type ApprovalState__572692684 = {#approved; #pending; #rejected};
+type ApprovalState__693649776 = {#approved; #pending; #rejected};
+type ApprovalStatus__982498703 = {#approved; #pending; #rejected};
+type Assignment__1001476869 =
+  {
+    createdAt : Timestamp__476630542;
+    id : Id__187844043;
+    prompt : Text;
+    rubricText : Text;
+    teacher : UserId__320466692;
+    title : Text
+  };
+type Assignment__111615456 =
+  {
+    createdAt : Timestamp__771871407;
+    id : Id__274469729;
+    prompt : Text;
+    rubricText : Text;
+    teacher : UserId__39544917;
+    title : Text
+  };
+type ConceptResult__1022090406 =
+  {
+    concept : Id__187844043;
+    confidence : Float;
+    evidenceQuote : ?Text;
+    id : Id__187844043;
+    nudge : Text;
+    status : ConceptStatus__530541837;
+    teacherComment : ?Text;
+    teacherOverrideStatus : OverrideStatus__48920624;
+    version : Id__187844043
+  };
+type ConceptResult__382000779 =
+  {
+    concept : Id__274469729;
+    confidence : Float;
+    evidenceQuote : ?Text;
+    id : Id__274469729;
+    nudge : Text;
+    status : ConceptStatus__609687691;
+    teacherComment : ?Text;
+    teacherOverrideStatus : OverrideStatus__407351170;
+    version : Id__274469729
+  };
+type ConceptStatus__530541837 = ConceptStatus__843479829;
+type ConceptStatus__609687691 =
+  {#covered; #misconception; #missing; #partial};
+type ConceptStatus__843479829 =
+  {#covered; #misconception; #missing; #partial};
+type Concept__317603171 =
+  {
+    assignment : Id__187844043;
+    description : Text;
+    id : Id__187844043;
+    misconception : Text;
+    name : Text;
+    weight : Float
+  };
+type Concept__914789761 =
+  {
+    assignment : Id__274469729;
+    description : Text;
+    id : Id__274469729;
+    misconception : Text;
+    name : Text;
+    weight : Float
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Id__187844043 = Id__389469852;
+type Id__274469729 = Nat;
+type Id__389469852 = Nat;
+type Id__529192002 = Id__389469852;
+type Int__616954475 = Int;
+type Int__789852381 = Int__616954475;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Invite__556842471 =
+  {
+    createdAt : Time__918999370;
+    createdBy : Principal;
+    expiresAt : ?Time__918999370;
+    maxUses : ?Nat;
+    name : Text;
+    var redemptions : [Redemption__1040467832];
+    var revoked : Bool
+  };
+type InvitesState__511333982 =
+  {var invites : Map__230067015<Text, Invite__556842471>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MarginNoteType__286280373 = MarginNoteType__461084459;
+type MarginNoteType__317350984 = {#highlight; #question; #summary};
+type MarginNoteType__461084459 = {#highlight; #question; #summary};
+type MarginNote__68555257 =
+  {
+    anchorText : Text;
+    createdAt : Timestamp__808179265;
+    id : Id__529192002;
+    noteType : MarginNoteType__286280373;
+    question : Text;
+    reading : Id__529192002;
+    studentResponse : ?Text
+  };
+type MarginNote__75191173 =
+  {
+    anchorText : Text;
+    createdAt : Timestamp__771871407;
+    id : Id__274469729;
+    noteType : MarginNoteType__317350984;
+    question : Text;
+    reading : Id__274469729;
+    studentResponse : ?Text
+  };
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    approvalRequests :
+      Map__230067015<UserId__39544917, ApprovalRequest__155810538>;
+    approvalState : UserApprovalState__266451338;
+    assignments : Map__230067015<Id__274469729, Assignment__111615456>;
+    conceptResults : Map__230067015<Id__274469729, ConceptResult__382000779>;
+    concepts : Map__230067015<Id__274469729, Concept__914789761>;
+    counters : {var nextId : Id__274469729};
+    invitesState : InvitesState__511333982;
+    marginNotes : Map__230067015<Id__274469729, MarginNote__75191173>;
+    profiles : Map__230067015<UserId__39544917, Profile__529753200>;
+    readingEvaluations :
+      Map__230067015<Id__274469729, ReadingEvaluation__608915139>;
+    readings : Map__230067015<Id__274469729, Reading__226699306>;
+    submissions : Map__230067015<Id__274469729, Submission__1023696649>;
+    versions : Map__230067015<Id__274469729, Version__352810845>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__512397517 = {};
+type OverrideStatus__407351170 = {#accepted; #none; #overridden};
+type OverrideStatus__48920624 = OverrideStatus__851661932;
+type OverrideStatus__851661932 = {#accepted; #none; #overridden};
+type Profile__171586635 =
+  {
+    createdAt : Timestamp__296597958;
+    id : UserId__814858161;
+    name : Text;
+    role : AppRole__27072156
+  };
+type Profile__529753200 =
+  {
+    createdAt : Timestamp__771871407;
+    id : UserId__39544917;
+    name : Text;
+    role : AppRole__851444669
+  };
+type ReadingEvaluation__608915139 =
+  {
+    createdAt : Timestamp__771871407;
+    feedbackJson : Text;
+    id : Id__274469729;
+    reading : Id__274469729;
+    scoresJson : Text
+  };
+type ReadingEvaluation__996985794 =
+  {
+    createdAt : Timestamp__808179265;
+    feedbackJson : Text;
+    id : Id__529192002;
+    reading : Id__529192002;
+    scoresJson : Text
+  };
+type Reading__226699306 =
+  {
+    content : Text;
+    createdAt : Timestamp__771871407;
+    id : Id__274469729;
+    student : UserId__39544917;
+    title : Text
+  };
+type Reading__267740145 =
+  {
+    content : Text;
+    createdAt : Timestamp__808179265;
+    id : Id__529192002;
+    student : UserId__694302299;
+    title : Text
+  };
+type Redemption__1040467832 = {at : Time__918999370; user : Principal};
+type SubmissionStatus__373353961 = {#draft; #submitted};
+type SubmissionStatus__614568899 = SubmissionStatus__373353961;
+type SubmissionStatus__763043782 = {#draft; #submitted};
+type Submission__1023696649 =
+  {
+    assignment : Id__274469729;
+    createdAt : Timestamp__771871407;
+    id : Id__274469729;
+    status : SubmissionStatus__763043782;
+    student : UserId__39544917;
+    updatedAt : Timestamp__771871407
+  };
+type Submission__327260052 =
+  {
+    assignment : Id__187844043;
+    createdAt : Timestamp__476630542;
+    id : Id__187844043;
+    status : SubmissionStatus__614568899;
+    student : UserId__320466692;
+    updatedAt : Timestamp__476630542
+  };
+type Time__418528263 = Int__789852381;
+type Time__918999370 = Time__418528263;
+type Timestamp__296597958 = Timestamp__301639476;
+type Timestamp__301639476 = Int;
+type Timestamp__476630542 = Timestamp__301639476;
+type Timestamp__771871407 = Int;
+type Timestamp__808179265 = Timestamp__301639476;
+type UserApprovalState__266451338 =
+  {var approvalStatus : Map__230067015<Principal, ApprovalStatus__982498703>};
+type UserId__158757552 = Principal;
+type UserId__320466692 = UserId__158757552;
+type UserId__39544917 = Principal;
+type UserId__694302299 = UserId__158757552;
+type UserId__814858161 = UserId__158757552;
+type UserRole__91647283 = {#admin; #guest; #user};
+type Version__352810845 =
+  {
+    coveragePct : Float;
+    createdAt : Timestamp__771871407;
+    id : Id__274469729;
+    submission : Id__274469729;
+    text : Text;
+    versionNo : Nat
+  };
+type Version__762292382 =
+  {
+    coveragePct : Float;
+    createdAt : Timestamp__476630542;
+    id : Id__187844043;
+    submission : Id__187844043;
+    text : Text;
+    versionNo : Nat
+  };
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable approvalRequests :
+    {
+      var root :
+        Node__204828119<UserId__158757552, ApprovalRequest__494363354>;
+      var size : Nat__227979830
+    };
+  stable approvalState :
+    {
+      var approvalStatus :
+        Map__230067015<Principal, ApprovalStatus__982498703>
+    };
+  stable assignments :
+    {
+      var root : Node__204828119<Id__389469852, Assignment__1001476869>;
+      var size : Nat__227979830
+    };
+  stable conceptResults :
+    {
+      var root : Node__204828119<Id__389469852, ConceptResult__1022090406>;
+      var size : Nat__227979830
+    };
+  stable concepts :
+    {
+      var root : Node__204828119<Id__389469852, Concept__317603171>;
+      var size : Nat__227979830
+    };
+  stable counters : {var nextId : Id__389469852};
+  stable invitesState :
+    {var invites : Map__230067015<Text, Invite__556842471>};
+  stable marginNotes :
+    {
+      var root : Node__204828119<Id__389469852, MarginNote__68555257>;
+      var size : Nat__227979830
+    };
+  stable profiles :
+    {
+      var root : Node__204828119<UserId__158757552, Profile__171586635>;
+      var size : Nat__227979830
+    };
+  stable readingEvaluations :
+    {
+      var root : Node__204828119<Id__389469852, ReadingEvaluation__996985794>;
+      var size : Nat__227979830
+    };
+  stable readings :
+    {
+      var root : Node__204828119<Id__389469852, Reading__267740145>;
+      var size : Nat__227979830
+    };
+  stable submissions :
+    {
+      var root : Node__204828119<Id__389469852, Submission__327260052>;
+      var size : Nat__227979830
+    };
+  stable versions :
+    {
+      var root : Node__204828119<Id__389469852, Version__762292382>;
+      var size : Nat__227979830
+    }
+};
